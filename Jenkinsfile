@@ -4,7 +4,7 @@ pipeline {
             image 'maven:3.9.6-eclipse-temurin-17'
         }
     }
-    
+
     stages {
         stage('Checkout') {
             steps {
@@ -14,6 +14,11 @@ pipeline {
 
         stage('Build') {
             steps {
+                sh """
+                apt-get update && \
+                apt-get install -y maven && \
+                rm -rf /var/lib/apt/lists/*
+                """
                 sh 'mvn clean validate'
                 sh 'mvn clean package -DskipTests'
             }
