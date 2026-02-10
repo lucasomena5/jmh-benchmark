@@ -10,11 +10,6 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh """
-                apt-get update && \
-                apt-get install -y maven && \
-                rm -rf /var/lib/apt/lists/*
-                """
                 sh 'mvn clean validate'
                 sh 'mvn clean package -DskipTests'
             }
